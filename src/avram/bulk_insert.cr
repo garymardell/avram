@@ -1,4 +1,4 @@
-module Avram::BulkInsert(T)
+module Avram::BulkInsert(U, T)
   macro included
     define_import
 
@@ -8,7 +8,7 @@ module Avram::BulkInsert(T)
   end
 
   macro define_import
-    def self.import(operations : Array(self))
+    def self.insert_all(operations : Array(U))
       operations.each(&.before_save)
 
       if operations.all?(&.valid?)

@@ -78,6 +78,7 @@ module Avram::NeedyInitializerAndSaveMethods
 
     generate_initializer({{ attribute_method_args }}, {{ attribute_params }})
     generate_save_methods({{ attribute_method_args }}, {{ attribute_params }})
+    generate_bulk_operation({{ @type }})
   end
 
   macro hash_is_not_allowed_helpful_error(method, additional_args = nil)
@@ -239,6 +240,11 @@ module Avram::NeedyInitializerAndSaveMethods
           self.{{ attribute.var }}.value = {{ attribute.var }}
         end
       {% end %}
+    end
+  end
+
+  macro generate_bulk_operation(type)
+    class ::{{type}}::Bulk < Avram::BulkOperation({{type}}, {{ T.id }})
     end
   end
 end

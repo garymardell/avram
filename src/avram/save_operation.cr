@@ -23,7 +23,6 @@ abstract class Avram::SaveOperation(T)
   include Avram::InheritColumnAttributes
   include Avram::Upsert
   include Avram::AddColumnAttributes
-  include Avram::BulkInsert(T)
 
   enum OperationStatus
     Saved
