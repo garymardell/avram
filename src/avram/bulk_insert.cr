@@ -36,7 +36,7 @@ module Avram::BulkInsert(U, T)
 
         if transaction_committed
           operations.each do |operation|
-            operation.save_status = OperationStatus::Saved
+            operation.save_status = ::Avram::SaveOperation::OperationStatus::Saved
             operation.after_commit(operation.record.as(T))
 
             Avram::Events::SaveSuccessEvent.publish(
