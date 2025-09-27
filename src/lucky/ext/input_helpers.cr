@@ -224,7 +224,7 @@ module Lucky::InputHelpers
     }.merge(input_overrides)
     update_array_id_counter!(field)
     attrs.uniq!
-    input attrs, merge_options(html_options, input_options)
+    html.input attrs, merge_options(html_options, input_options)
   end
 
   private property array_id_counter : Hash(Symbol, Int32) do

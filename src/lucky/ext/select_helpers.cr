@@ -1,13 +1,13 @@
 module Lucky::SelectHelpers
   def select_input(field : Avram::PermittedAttribute, attrs : Array(Symbol) = [] of Symbol, **html_options, &) : Nil
-    select_tag attrs, merge_options(html_options, {"id" => input_id(field), "name" => input_name(field)}) do
+    html.select_tag attrs, merge_options(html_options, {"id" => input_id(field), "name" => input_name(field)}) do
       yield
     end
   end
 
   def multi_select_input(field : Avram::PermittedAttribute(Array), attrs : Array(Symbol) = [] of Symbol, **html_options, &) : Nil
     merged_attrs = [:multiple].concat(attrs)
-    select_tag merged_attrs, merge_options(html_options, {"id" => input_id(field), "name" => input_name(field)}) do
+    html.select_tag merged_attrs, merge_options(html_options, {"id" => input_id(field), "name" => input_name(field)}) do
       yield
     end
   end
@@ -20,7 +20,7 @@ module Lucky::SelectHelpers
       is_selected = option_value.to_s == field.param.to_s
       bool_attrs << :selected if is_selected
 
-      option(option_name, attrs: bool_attrs, options: merge_options(html_options, attributes))
+      html.option(option_name, attrs: bool_attrs, options: merge_options(html_options, attributes))
     end
   end
 
@@ -34,14 +34,14 @@ module Lucky::SelectHelpers
         bool_attrs << :selected if is_selected
       end
 
-      option(option_name, attrs: bool_attrs, options: merge_options(html_options, attributes))
+      html.option(option_name, attrs: bool_attrs, options: merge_options(html_options, attributes))
     end
   end
 
   # Renders an <option> HTML tag with no value
   # The text is set to `label`.
   def select_prompt(label : String) : Nil
-    option(label, value: "")
+    html.option(label, value: "")
   end
 
   private def input_id(field : Avram::PermittedAttribute)
